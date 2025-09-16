@@ -5,7 +5,10 @@
 <main id="main">
 
 	<h2>Calculate Drugs to purchase</h2>
-	<p>For how many days do you want to purchase drugs?</p> <form id="drug_days"> <input type="number" id="days" value="30"> <button type="submit">Enter</button> </form>
+	<p>For how many days do you want to purchase drugs?</p> 
+	<form id="drug_days">     
+		<input type="number" id="days" value="<%= typeof days !== 'undefined' ? days : 30 %>">
+	 <button type="submit">Enter</button> </form>
 
 	<table id="purchase_table">	
 		<thead>
@@ -32,6 +35,17 @@
 	</table>
 </main>
 <!-- End main section -->
+ <!-- ...existing code... -->
+<script>
+document.getElementById('drug_days').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const days = parseInt(document.getElementById('days').value, 10);
+
+    // Gửi lại số ngày lên server để render lại bảng (cách đơn giản nhất là reload trang với query param)
+    window.location.href = `/purchase?days=${days}`;
+});
+</script>
+<!-- ...existing code... -->
 <!-- add footer -->
 <%- include('includes/_footer') %>
 <!-- end footer-->
