@@ -23,7 +23,10 @@ exports.create = (req,res)=>{
         .save(drug)//use the save operation on drug
         .then(data => {
             console.log(`${data.name} added to the database`) 
-            res.redirect('/manage');
+            res.status(201).json({
+                message: "Drug added successfully",
+                data: data
+            });
         })
         .catch(err =>{
             res.status(500).send({//catch error

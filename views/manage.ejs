@@ -42,6 +42,26 @@
 		</tbody>
 	</table>
 </main>
+<script>
+  document.querySelectorAll(".delete").forEach(btn => {
+    btn.addEventListener("click", async function(e) {
+      e.preventDefault(); // Ngăn reload mặc định của thẻ <a>
+
+      const id = this.dataset.id;
+      if (confirm("Are you sure you want to delete this drug?")) {
+        try {
+          const res = await fetch(`/api/drugs/${id}`, { method: "DELETE" });
+          const result = await res.json();
+          alert(result.message || "Deleted successfully");
+          window.location.reload(); // Reload lại danh sách
+        } catch (err) {
+          alert("Error deleting drug");
+          console.error(err);
+        }
+      }
+    });
+  });
+</script>
 <!-- End main section -->
 <!-- add footer -->
 <%- include('includes/_footer') %>
